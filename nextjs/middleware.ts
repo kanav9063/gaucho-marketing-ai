@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server"; 
 
 const isPublicRoute = createRouteMatcher([
   "/",
@@ -8,10 +8,10 @@ const isPublicRoute = createRouteMatcher([
   "/api/webhooks/stripe",
 ]);
 
-const isSecureRoute = createRouteMatcher([
-  "/api/asset-processing-job",
-  "/api/asset",
-]);
+// const isSecureRoute = createRouteMatcher([
+//   "/api/asset-processing-job",
+//   "/api/asset",
+// ]);
 
 // const SERVER_API_KEY = process.env.SERVER_API_KEY;
 
@@ -21,9 +21,9 @@ const isSecureRoute = createRouteMatcher([
 
 export default clerkMiddleware((auth, request) => {
   // Check for secure API routes (service worker only)
-//   if (isSecureRoute(request)) {
-//     return checkServiceWorkerAuth(request);
-//   }
+  //   if (isSecureRoute(request)) {
+  //     return checkServiceWorkerAuth(request);
+  //   }
 
   // if a user is not authenticated and they are trying to
   // access a private route, redirect them to the clerk login page

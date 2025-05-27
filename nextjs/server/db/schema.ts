@@ -16,3 +16,8 @@ export const projectsTable = pgTable("projects", {
     .$onUpdate(() => new Date()),
   userId: varchar("user_id", { length: 50 }).notNull(),
 });
+
+
+// Types
+export type InsertProject = typeof projectsTable.$inferInsert;
+export type Project = typeof projectsTable.$inferSelect;
