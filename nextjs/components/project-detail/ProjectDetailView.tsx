@@ -10,9 +10,15 @@ import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProjectDetailBody from "./ProjectDetailBody";
 
-const ManageUploadStep = lazy(() => import("@/components/ManageUploadStep"));
-const ConfigurePromptsStep = lazy(() => import("@/components/ConfigurePromptsStep"));
-const GenerateContentStep = lazy(() => import("@/components/GenerateContentStep"));
+const ManageUploadStep = lazy(
+  () => import("@/components/upload-step/ManageUploadStep")
+);
+const ConfigurePromptsStep = lazy(
+  () => import("@/components/ConfigurePromptsStep")
+);
+const GenerateContentStep = lazy(
+  () => import("@/components/GenerateContentStep")
+);
 
 const steps = [
   { name: "Upload Media", tab: "upload", component: ManageUploadStep },
