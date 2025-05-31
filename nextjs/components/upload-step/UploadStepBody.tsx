@@ -68,7 +68,9 @@ function UploadStepBody({
           >
             {isExceeded
               ? "Content Limit Exceeded. Please delete assets"
-              : `${formattedPercentage}% of ${MAX_TOKENS_ASSETS.toLocaleString()} tokens used`}
+              : `${formattedPercentage}% of ${MAX_TOKENS_ASSETS.toLocaleString(
+                  "en-US"
+                )} tokens used`}
           </p>
           <div className="w-full bg-gray-200 rounded-full h-2.5 mb-1">
             <div
