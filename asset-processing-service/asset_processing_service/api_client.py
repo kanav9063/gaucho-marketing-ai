@@ -1,9 +1,11 @@
-from datetime import datetime
-from typing import Any, Dict, List, Optional
 
+from typing import Any, Dict, List, Optional
 import aiohttp
 from asset_processing_service.config import HEADERS, config
 from asset_processing_service.models import Asset, AssetProcessingJob
+from datetime import datetime
+import tiktoken
+
 
 
 class ApiError(Exception):
@@ -25,14 +27,13 @@ async def fetch_jobs() -> List[AssetProcessingJob]:
                     # Parse the JSON data into AssetProcessingJob instances
                     jobs = [AssetProcessingJob(**item) for item in data]
                     return jobs
-
+                
                 else:
                     print("Error fetching jobs: ", response.status)
                     return []
     except aiohttp.ClientError as error:
         print(f"Error fetching jobs: {error}")
         return []
-
 
 async def update_job_details(job_id: str, update_data: Dict[str, Any]) -> None:
     data = {**update_data, "lastHeartBeat": datetime.now().isoformat()}
@@ -54,6 +55,7 @@ async def update_job_heartbeat(job_id: str) -> None:
                 response.raise_for_status()
     except aiohttp.ClientError as error:
         print(f"Failed to update job heartbeat for job {job_id}: {error}")
+        
 
 
 async def fetch_asset(asset_id: str) -> Optional[Asset]:
@@ -67,9 +69,9 @@ async def fetch_asset(asset_id: str) -> Optional[Asset]:
 
                     if data:
                         return Asset(**data)
-
+                    
                     return None
-
+                
                 else:
                     print("Error fetching asset: ", response.status)
                     return None
@@ -87,3 +89,24 @@ async def fetch_asset_file(file_url: str) -> bytes:
     except aiohttp.ClientError as error:
         print(f"Error fetching asset file: {error}")
         raise ApiError("Failed to fetch asset file", status_code=500)
+
+
+async def update_asset_content(asset_id: str, content: str) -> None:
+    try:
+        encoding = tiktoken.encoding_for_model("gpt-4o")
+        tokens = encoding.encode(content)
+        token_count = len(tokens)
+
+        update_data = {
+            "content": content,
+            "tokenCount": token_count,
+        }
+
+        async with aiohttp.ClientSession() as session:
+            url = f"{config.API_BASE_URL}/asset?assetId={asset_id}"
+            async with session.patch(url, json=update_data, headers=HEADERS) as response:
+                response.raise_for_status()
+
+    except aiohttp.ClientError as error:
+        print(f"Failed to update asset content for asset {asset_id}: {error}")
+        raise ApiError("Failed to update asset content", status_code=500)

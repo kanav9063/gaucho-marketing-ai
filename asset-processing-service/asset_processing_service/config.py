@@ -18,6 +18,8 @@ class Config:
     MAX_NUM_WORKERS = int(os.getenv("MAX_NUM_WORKERS", "2"))
     HEARTBEAT_INTERVAL_SECONDS = int(os.getenv("HEARTBEAT_INTERVAL_SECONDS", "10"))
     MAX_CHUNK_SIZE_BYTES = int(os.getenv("MAX_CHUNK_SIZE_BYTES", str(24 * 1024 * 1024)))
+    OPENAI_MODEL = os.getenv("OPENAI_MODEL", "whisper-1") # TODO : we set whcih model -  consider switching to diff model later 
+
 
 config = Config()
 
