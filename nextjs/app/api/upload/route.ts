@@ -32,11 +32,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         };
       },
       onUploadCompleted: async ({ blob, tokenPayload }) => {
-        // Get notified of client upload completion
-        // ⚠️ This will not work on `localhost` websites,
-        // Use ngrok or similar to get the full upload flow
-
-        if (!tokenPayload) return; //no info so cant do anything
+        if (!tokenPayload) return;
 
         const { projectId, fileType, mimeType, size } =
           JSON.parse(tokenPayload);
