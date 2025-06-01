@@ -2,10 +2,13 @@ import asyncio
 import os
 import shutil
 import tempfile
+
 import ffmpeg
 
 
-async def split_audio_file(audio_buffer: bytes, max_chunk_size_bytes: int, original_file_name: str): #whisper can take in only a speceifc size of audio 
+async def split_audio_file(
+    audio_buffer: bytes, max_chunk_size_bytes: int, original_file_name: str
+):  # whisper can take in only a speceifc size of audio
     file_name_without_ext, file_extension = os.path.splitext(original_file_name)
     chunks = []
     temp_dir = tempfile.mkdtemp()
@@ -33,7 +36,7 @@ async def split_audio_file(audio_buffer: bytes, max_chunk_size_bytes: int, origi
         total_size = int(format_info.get("size", 0))
         duration = float(format_info.get("duration", 0.0))
 
-         # Calculate the number of chunks needed
+        # Calculate the number of chunks needed
         num_chunks = max(
             1, int((total_size + max_chunk_size_bytes - 1) // max_chunk_size_bytes)
         )
@@ -41,14 +44,13 @@ async def split_audio_file(audio_buffer: bytes, max_chunk_size_bytes: int, origi
         # Calculate chunk duration
         chunk_duration = duration / num_chunks
 
-
         print("Total size: ", total_size)
         print("Duration: ", duration)
         print(f"Splitting into {num_chunks} chunks of {chunk_duration} seconds each.")
 
         # Split the audio file into chunks
         output_pattern = os.path.join(
-            temp_dir, f"{file_name_without_ext}_chunk_%03d.mp3" 
+            temp_dir, f"{file_name_without_ext}_chunk_%03d.mp3"
         )
         split_cmd = ffmpeg.input(temp_mp3_path).output(
             output_pattern,
@@ -92,15 +94,14 @@ async def split_audio_file(audio_buffer: bytes, max_chunk_size_bytes: int, origi
 
         return chunks
 
-
     except Exception as e:
         print(f"Error splitting audio file: {e}")
         raise
     finally:
         # Clean up temporary files
         shutil.rmtree(temp_dir)
-    
-    
+
+
 async def convert_audio_to_mp3(input_path: str, output_path: str):
     """
     Converts an audio file to MP3 format.
