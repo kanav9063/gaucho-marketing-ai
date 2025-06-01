@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GenerateStepHeader from "./GenerateStepHeader";
 import axios from "axios";
 import { Asset, GeneratedContent, Prompt } from "@/server/db/schema";
@@ -165,29 +165,20 @@ function GenerateContentStep({ projectId }: GenerateContentStepProps) {
         clearInterval(pollingInterval);
       }
     };
-  }, [isGenerating]);
+  }, [isGenerating, projectId, totalPrompts]);
 
   const startGeneration = async () => {
-    console.log("=== STARTING GENERATION ===");
-    console.log("Project ID:", projectId);
-    console.log("Can Generate:", canGenerate);
-
     setGeneratedContent([]);
     setGeneratedCount(0);
     try {
-      console.log("Step 1: Deleting old content...");
       await axios.delete(`/api/projects/${projectId}/generated-content`);
-      console.log("Step 1: ✓ Deleted");
-
       setIsGenerating(true);
 
-      console.log("Step 2: Posting to generate content...");
-      const response = await axios.post<GeneratedContent[]>(
+      await axios.post<GeneratedContent[]>(
         `/api/projects/${projectId}/generated-content`
       );
-      console.log("Step 2: ✓ Posted, response:", response);
     } catch (error) {
-      console.error("❌ ERROR:", error);
+      console.error(error);
       toast.error("Failed to generate content");
       setIsGenerating(false);
     }
