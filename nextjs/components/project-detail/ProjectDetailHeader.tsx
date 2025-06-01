@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { CheckIcon, SquarePen, Trash2, X } from "lucide-react";
 import { Input } from "../ui/input";
 import axios from "axios";
-import toast from "react-hot-toast"; //quick little pop up notification
+import toast from "react-hot-toast";
 
 interface ProjectDetailHeaderProps {
   project: Project;
@@ -22,9 +22,6 @@ function ProjectDetailHeader({
   const [title, setTitle] = useState(project.title);
   const [isEditing, setIsEditing] = useState(false);
 
-  
-  //backend : async backend request using axios ( can do get/put/post/delete))-> what you get back can be mentioend 
-  //try catch block : try to do the request, if it fails, catch the error and show a toast message
   const handleTitleSubmit = async () => {
     try {
       const response = await axios.patch<Project>(
@@ -53,7 +50,7 @@ function ProjectDetailHeader({
       } else {
         toast.error(defaultMessage);
       }
-    } finally { //finally block : always runs, even if the request fails
+    } finally {
       setIsEditing(false);
     }
   };

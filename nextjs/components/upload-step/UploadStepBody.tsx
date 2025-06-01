@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { AudioLines, FileMinus, Video, File, Dot, Trash } from "lucide-react";
 import { Button } from "../ui/button";
+
 import { cn } from "@/lib/utils";
 import { MAX_TOKENS_ASSETS } from "@/lib/constants";
 import { formatTokens } from "@/utils/token-helper";
@@ -68,9 +69,7 @@ function UploadStepBody({
           >
             {isExceeded
               ? "Content Limit Exceeded. Please delete assets"
-              : `${formattedPercentage}% of ${MAX_TOKENS_ASSETS.toLocaleString(
-                  "en-US"
-                )} tokens used`}
+              : `${formattedPercentage}% of ${MAX_TOKENS_ASSETS.toLocaleString()} tokens used`}
           </p>
           <div className="w-full bg-gray-200 rounded-full h-2.5 mb-1">
             <div

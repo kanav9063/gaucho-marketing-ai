@@ -2,7 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { db } from "./db";
-import { Project, projectsTable } from "./db/schema";
+import { Project, projectsTable, Template, templatesTable } from "./db/schema";
 import { eq } from "drizzle-orm";
 
 export function getProjectsForUser(): Promise<Project[]> {
@@ -32,8 +32,6 @@ export async function getProject(projectId: string) {
     throw new Error("User not found");
   }
 
-
-  // we are checking 2 things here : 1) the projectId matches the id of the project 2) auth : the userId matches the userId of the project
   const project = await db.query.projectsTable.findFirst({
     where: (project, { eq, and }) =>
       and(eq(project.id, projectId), eq(project.userId, userId)),
@@ -42,3 +40,37 @@ export async function getProject(projectId: string) {
   return project;
 }
 
+export async function getTemplatesForUser(): Promise<Template[]> {
+  // Figure out who the user is
+  const { userId } = auth();
+
+  // Verify the user exists
+  if (!userId) {
+    throw new Error("User not found");
+  }
+
+  // Fetch templates from database
+  const projects = await db.query.templatesTable.findMany({
+    where: eq(templatesTable.userId, userId),
+    orderBy: (templates, { desc }) => [desc(templates.updatedAt)],
+  });
+
+  return projects;
+}
+
+export async function getTemplate(id: string): Promise<Template | undefined> {
+  // Figure out who the user is
+  const { userId } = auth();
+
+  // Verify the user exists
+  if (!userId) {
+    throw new Error("User not found");
+  }
+
+  const template = await db.query.templatesTable.findFirst({
+    where: (template, { eq, and }) =>
+      and(eq(template.id, id), eq(template.userId, userId)),
+  });
+
+  return template;
+}
