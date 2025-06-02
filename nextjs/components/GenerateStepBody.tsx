@@ -190,6 +190,18 @@ function GenerateStepBody({
           </Card>
         ))}
       </div>
+
+      {/* POST BUTTON */}
+      {generatedContent.length > 0 && (
+        <div className="flex justify-center mt-8">
+          <Button
+            onClick={() => {}}
+            className="bg-main hover:bg-main/90 text-white rounded-lg px-6 py-2"
+          >
+            Post
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
