@@ -14,15 +14,15 @@ body {
   :root {
     /* Color Variables */
     --background: 0 0% 100%;
-    --foreground: 210 100% 12%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 210 100% 12%;
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 210 100% 12%;
-    --primary: 210 98% 60%; /* #359efe */
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 211 87% 23%; /* UCSB Blue #003660 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 50% 90%;
-    --secondary-foreground: 210 100% 12%;
+    --secondary: 43 100% 51%; /* UCSB Gold #FEBC11 */
+    --secondary-foreground: 0 0% 0%;
     --muted: 210 40% 96%;
     --muted-foreground: 210 40% 40%;
     --accent: 210 98% 90%;
@@ -43,14 +43,14 @@ body {
 
   /* Dark Mode Overrides */
   .dark {
-    --background: 210 50% 10%;
-    --foreground: 210 20% 90%;
-    --card: 210 50% 10%;
-    --card-foreground: 210 20% 90%;
-    --popover: 210 50% 10%;
-    --popover-foreground: 210 20% 90%;
-    --primary: 210 98% 60%;
-    --primary-foreground: 0 0% 100%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 43 100% 51%; /* UCSB Gold #FEBC11 in dark mode */
+    --primary-foreground: 0 0% 0%;
     --secondary: 210 50% 20%;
     --secondary-foreground: 210 20% 90%;
     --muted: 210 50% 20%;
@@ -79,5 +79,35 @@ body {
 
   .accordion-trigger[data-state="closed"] {
     text-decoration: none;
+  }
+}
+
+/* UCSB Custom Styles */
+@layer components {
+  /* Gold accent for primary buttons */
+  .btn-primary {
+    @apply bg-blue-900 text-white hover:bg-blue-800 border-2 border-transparent hover:border-yellow-400 transition-all;
+  }
+
+  /* Gold highlight for focus states */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply ring-2 ring-yellow-400 ring-offset-2;
+  }
+
+  /* Gold accent for links */
+  a:hover {
+    @apply text-yellow-600;
+  }
+
+  /* Gold border accent for cards on hover */
+  .card-hover:hover {
+    @apply border-yellow-400 shadow-lg;
+  }
+
+  /* UCSB gradient text */
+  .ucsb-gradient {
+    @apply bg-gradient-to-r from-blue-900 to-yellow-500 bg-clip-text text-transparent;
   }
 }

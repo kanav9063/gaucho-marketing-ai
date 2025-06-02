@@ -12,7 +12,7 @@ function SidebarToggle({ isCollapsed, toggleSidebar }: SidebarToggleProps) {
   return (
     <div
       className={cn(
-        "flex border-t border-gray-200",
+        "flex border-t-2 border-yellow-200",
         isCollapsed ? "p-4 justify-center" : "p-4 justify-end"
       )}
     >
@@ -20,7 +20,7 @@ function SidebarToggle({ isCollapsed, toggleSidebar }: SidebarToggleProps) {
         variant="ghost"
         onClick={toggleSidebar}
         className={cn(
-          "text-gray-800 hover:text-main hover:bg-gray-200",
+          "text-gray-800 hover:text-yellow-600 hover:bg-yellow-50 transition-colors",
           isCollapsed && "self-center"
         )}
       >

@@ -8,6 +8,7 @@ import SidebarNav from "./SidebarNav";
 import SidebarToggle from "./SidebarToggle";
 import { useUser } from "@clerk/nextjs";
 import UserProfileSection from "./UserProfileSection";
+import Image from "next/image";
 
 const MOBILE_WINDOW_WIDTH_LIMIT = 1024;
 
@@ -91,7 +92,7 @@ function Sidebar() {
         <div
           ref={sidebarRef}
           className={cn(
-            "bg-gray-100 flex flex-col h-screen transition-all duration-300 overflow-y-auto",
+            "bg-blue-50 flex flex-col h-screen transition-all duration-300 overflow-y-auto border-r-2 border-blue-100",
             // MOBILE STYLES
             !isMobile
               ? ""
@@ -113,9 +114,31 @@ function Sidebar() {
             )}
           >
             {!isCollapsed && (
-              <h1 className="text-4xl font-bold mb-10">
-                AI Marketing Platform
-              </h1>
+              <>
+                <div className="flex justify-center mb-6">
+                  <Image
+                    src="/images/ucsb-logo.png"
+                    alt="UCSB Gaucho"
+                    width={150}
+                    height={150}
+                    className="rounded-lg"
+                  />
+                </div>
+                <h1 className="text-4xl font-bold mb-10 text-center bg-gradient-to-r from-blue-900 to-yellow-500 bg-clip-text text-transparent">
+                  Gaucho AI Marketing
+                </h1>
+              </>
+            )}
+            {isCollapsed && (
+              <div className="flex justify-center mb-6">
+                <Image
+                  src="/images/ucsb-logo.png"
+                  alt="UCSB Gaucho"
+                  width={80}
+                  height={80}
+                  className="rounded-lg"
+                />
+              </div>
             )}
 
             <SidebarNav isMobile={isMobile} isCollapsed={isCollapsed} />

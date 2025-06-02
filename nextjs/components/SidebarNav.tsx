@@ -51,9 +51,10 @@ function SidebarNav({ isMobile, isCollapsed }: SidebarNavProps) {
           variant="ghost"
           asChild
           className={cn(
-            "w-full justify-start hover:text-main hover:bg-gray-200 flex items-center text-lg font-medium",
+            "w-full justify-start hover:text-yellow-600 hover:bg-yellow-50 flex items-center text-lg font-medium transition-colors",
             !isMobile && isCollapsed && "justify-center p-2",
-            item.isActive(pathname) && "bg-gray-200 text-main"
+            item.isActive(pathname) &&
+              "bg-yellow-100 text-yellow-700 border-l-4 border-yellow-500"
           )}
         >
           <Link href={item.href}>
