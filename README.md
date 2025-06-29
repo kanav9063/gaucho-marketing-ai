@@ -1,10 +1,10 @@
-# 🚀 Gaucho AI Marketing
+#  Gaucho AI Marketing
 
 A self-improving, low-cost, fully automated AI agentic system for SMB marketing
 
 ⸻
 
-## 📌 Overview
+## Overview
 
 Gaucho AI Marketing is an end-to-end marketing automation platform built for small and medium businesses (SMBs). It addresses a common, persistent problem:
 
@@ -16,7 +16,7 @@ Unlike generic tools (e.g., ChatGPT, Gemini) or expensive agencies, Gaucho AI st
 
 ⸻
 
-## ✨ Core Features
+## Core Features
 
 - 🧠 **Brand-aware Content Generation**
   - Ingests brand assets (text, image, audio/video)
